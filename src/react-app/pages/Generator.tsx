@@ -193,7 +193,7 @@ export default function Generator() {
                   }}
                   placeholder="Describe your startup idea..."
                   disabled={isGenerating}
-                  className="w-full h-40 bg-white/5 border border-white/10 rounded-2xl p-6 text-white placeholder:text-white/30 focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 transition-all resize-none disabled:opacity-50"
+                  className="w-full h-40 bg-white/5 border border-white/10 rounded-2xl p-6 text-white placeholder:text-white/30 focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 transition-all resize-none disabled:opacity-50 overflow-y-auto scrollbar-none"
                 />
                 <div className="absolute bottom-4 right-4 text-xs text-white/30">
                   {idea.length} characters
@@ -306,7 +306,20 @@ export default function Generator() {
                                 </button>
                               </div>
                               <div className="text-white/60 leading-relaxed whitespace-pre-wrap">
-                                {content}
+                                {content
+                                  .split(/\*\*(.*?)\*\*/g)
+                                  .map((part, i) =>
+                                    i % 2 === 1 ? (
+                                      <strong
+                                        key={i}
+                                        className="text-white/90 font-semibold"
+                                      >
+                                        {part}
+                                      </strong>
+                                    ) : (
+                                      part
+                                    ),
+                                  )}
                               </div>
                             </div>
                           </div>
