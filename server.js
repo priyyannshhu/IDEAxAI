@@ -6,13 +6,12 @@ import { GoogleGenAI } from "@google/genai";
 dotenv.config();
 
 const app = express();
-
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://ideaxai.vercel.app",
-      process.env.FRONTEND_URL, // add this for flexibility
+      "https://idea-x-ai.vercel.app",  // ← was ideaxai.vercel.app, wrong!
+      process.env.FRONTEND_URL,
     ],
     methods: ["GET", "POST"],
     credentials: true,
