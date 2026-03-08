@@ -9,10 +9,14 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://ideaxai.vercel.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://ideaxai.vercel.app",
+      process.env.FRONTEND_URL, // add this for flexibility
+    ],
     methods: ["GET", "POST"],
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 
@@ -26,7 +30,8 @@ app.post("/api/generate-blueprint", async (req, res) => {
 
     if (!idea || typeof idea !== "string" || idea.trim().length < 10) {
       return res.status(400).json({
-        error: "Please provide a more detailed startup idea (minimum 10 characters).",
+        error:
+          "Please provide a more detailed startup idea (minimum 10 characters).",
       });
     }
 
@@ -159,7 +164,6 @@ Important Rules:
     const blueprint = JSON.parse(text);
 
     res.json({ blueprint });
-
   } catch (error) {
     console.error("Blueprint generation error:", error);
 
@@ -180,3 +184,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 IDEAxAI server running on port ${PORT}`);
 });
+
+// Keep your existing code, just ADD this line at the very end:
+export default app;
