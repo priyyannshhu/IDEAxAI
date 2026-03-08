@@ -179,11 +179,12 @@ Important Rules:
   }
 });
 
-const PORT = process.env.PORT || 5000;
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`🚀 IDEAxAI server running on port ${PORT}`);
+  });
+}
 
-app.listen(PORT, () => {
-  console.log(`🚀 IDEAxAI server running on port ${PORT}`);
-});
-
-// Keep your existing code, just ADD this line at the very end:
 export default app;
+
